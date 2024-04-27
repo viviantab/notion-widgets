@@ -18,19 +18,27 @@
   .clock-widget {
     display: flex;
     justify-content: space-between;
-    width: 220px;
+    width: 400px; /* Adjust width to fit the larger boxes */
   }
 
   .hour-box,
   .minute-box {
-    width: 100px;
-    height: 100px;
+    width: 200px; /* Set width to half of the clock-widget width */
+    height: 100px; /* Set height to half of the desired box height */
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: black;
     color: white;
     font-size: 30px;
+    text-align: center; /* Center align text */
+  }
+
+  .date {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 14px; /* Smaller font size for date */
   }
 </style>
 </head>
@@ -66,4 +74,4 @@
   setInterval(updateClock, 1000);
 </script>
 </body>
-</html>
+<
