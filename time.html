@@ -4,7 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clock Widget</title>
-<link rel="stylesheet" href="styles.css">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .clock-widget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border: 2px solid #000;
+  }
+
+  .hour-box,
+  .minute-box {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid black;
+  }
+
+  .date {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 10px;
+  }
+</style>
 </head>
 <body>
 <div class="clock-widget">
@@ -25,6 +63,32 @@
   </select>
 </div>
 
-<script src="script.js"></script>
+<script>
+  function updateClock() {
+    const now = new Date();
+    const hour = String(now.getHours()).padStart(2, '0');
+    const minute = String(now.getMinutes()).padStart(2, '0');
+    const date = now.toLocaleDateString('en-US', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+    document.getElementById('hour').textContent = hour;
+    document.getElementById('minute').textContent = minute;
+    document.getElementById('date').textContent = date;
+  }
+
+  document.getElementById('color-dropdown').addEventListener('change', function() {
+    const color = this.value;
+    document.querySelectorAll('.hour-box span, .minute-box span, .date').forEach(element => {
+      element.style.color = color;
+    });
+  });
+
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
 </body>
 </html>
