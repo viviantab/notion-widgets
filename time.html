@@ -7,6 +7,7 @@
 <style>
   body {
     background-color: white;
+    font-family: 'Times New Roman', Times, serif;
   }
   .container {
     display: flex;
@@ -14,23 +15,19 @@
     align-items: center;
     width: 400px;
     height: 200px;
-    color: black;
-    font-size: 72px;
-    font-family: 'Times New Roman', Times, serif;
-    position: relative;
     margin: 50px auto;
     border: 2px solid black;
+    position: relative;
   }
   .box {
-    height: 100%;
-    width: 200px;
-    padding: 20px;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: black;
-    position: relative; /* Added position relative */
-    z-index: 1; /* Added z-index to ensure it's above other elements */
+    color: white;
+    font-size: 72px;
+    position: relative;
   }
   .line {
     position: absolute;
@@ -45,6 +42,7 @@
     bottom: 10px;
     right: 10px;
     font-size: 20px;
+    color: black;
   }
 </style>
 </head>
@@ -52,18 +50,17 @@
 
 <div class="container">
   <div class="box" id="hourBox">
-    <div class="line"></div>
     <span id="hour"></span>
+    <div class="line"></div>
   </div>
   <div class="box" id="minuteBox">
-    <div class="line"></div>
     <span id="minute"></span>
+    <div class="line"></div>
   </div>
   <div class="date" id="dateBox">Tuesday, 27 April 2024</div>
 </div>
 
 <script>
-  // Function to update the time every second
   function updateTime() {
     var now = new Date();
     var hour = now.getHours().toString().padStart(2, '0');
@@ -72,7 +69,6 @@
     document.getElementById("minute").innerText = minute;
   }
 
-  // Call updateTime initially and every second
   updateTime();
   setInterval(updateTime, 1000);
 </script>
