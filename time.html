@@ -6,7 +6,6 @@
 <title>Time and Date Widget</title>
 <style>
   body {
-    font-family: 'Onyx', 'Times New Roman', Times, serif;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -16,78 +15,97 @@
   }
   
   .widget {
-    width: 600px;
-    height: 300px;
+    width: 500px;
+    height: 250px;
     background-color: white;
     border: 2px solid black;
-    position: relative;
+    display: flex;
   }
   
-  .time-box, .date-box {
-    width: 50%;
-    height: 100%;
+  .box {
+    flex: 1;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 100px;
+    font-size: 80px;
+    font-family: 'Onyx', 'Times New Roman', Times, serif;
+    overflow: hidden;
   }
-  
-  .time-box {
+
+  .hour {
     background-color: black;
   }
-  
-  .date-box {
+
+  .minute {
     background-color: blue;
   }
-  
+
+  .time, .date {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .time {
+    font-size: 80px;
+  }
+
+  .date {
+    font-size: 40px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+
   .line {
-    width: 90%;
+    width: 80%;
     height: 2px;
     background-color: white;
     margin: 20px 0;
   }
-  
-  .color-dropdown {
+
+  .dropdown {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 30px;
-    height: 30px;
-    background-color: transparent;
-    border: none;
+    bottom: 10px;
+    left: 10px;
     cursor: pointer;
-    outline: none;
-  }
-  
-  .color-dropdown:hover {
-    opacity: 0.7;
+    color: white;
+    font-size: 30px;
   }
 </style>
 </head>
 <body>
 
 <div class="widget">
-  <div class="time-box">
-    <div>12</div>
-    <hr class="line">
-    <div>34</div>
+  <div class="box hour">
+    <div class="time">12</div>
   </div>
-  <div class="date-box">
-    <div>Monday, 27 April 2024</div>
-    <button class="color-dropdown">&#9660;</button>
+  <div class="box minute">
+    <div class="time">34</div>
+    <div class="date">Monday, 27 April 2024</div>
   </div>
+  <select class="dropdown">
+    <option value="black">Black</option>
+    <option value="blue">Blue</option>
+    <option value="yellow">Yellow</option>
+    <option value="red">Red</option>
+    <option value="green">Green</option>
+    <option value="pink">Pink</option>
+  </select>
 </div>
 
 <script>
-  const colorDropdown = document.querySelector('.color-dropdown');
-  const widget = document.querySelector('.widget');
-  const colors = ['black', 'blue', 'yellow', 'red', 'green', 'pink'];
+  const dropdown = document.querySelector('.dropdown');
+  const boxes = document.querySelectorAll('.box');
 
-  colorDropdown.addEventListener('click', () => {
-    const colorIndex = Math.floor(Math.random() * colors.length);
-    widget.style.backgroundColor = colors[colorIndex];
+  dropdown.addEventListener('change', () => {
+    const color = dropdown.value;
+    boxes.forEach(box => {
+      box.style.backgroundColor = color;
+    });
   });
 </script>
 
