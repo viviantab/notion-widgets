@@ -9,18 +9,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 600px; /* adjusted width */
-    height: 200px;
+    width: 400px;
+    height: 300px; /* Increased height */
     background-color: black;
     color: white;
-    font-size: 30px;
+    font-size: 40px; /* Increased font size */
     font-family: 'Times New Roman', Times, serif;
     position: relative;
   }
   .box {
     flex: 1;
     height: 100%;
-    background-color: black; /* changed to black */
+    width: 100px; /* Reduced width */
+    background-color: black;
     padding: 20px;
     display: flex;
     align-items: center;
@@ -50,6 +51,7 @@
     <div class="line"></div>
     <span id="hour"></span>
   </div>
+  <div style="width: 20px;"></div> <!-- Space between boxes -->
   <div class="box" id="minuteBox">
     <div class="line"></div>
     <span id="minute"></span>
