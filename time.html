@@ -1,77 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Date and Time Widget</title>
-<style>
-  body {
-    background-color: white;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 400px;
-    height: 200px;
-    margin: 50px auto;
-    border: 2px solid black;
-    position: relative;
-  }
-  .box {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: black;
-    color: white;
-    font-size: 72px;
-    position: relative;
-  }
-  .line {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background-color: white;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .date {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 20px;
-    color: black;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Widget</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Onyx', 'Times New Roman', serif;
+      overflow: hidden;
+    }
+
+    #time-container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .box {
+      flex: 1;
+      position: relative;
+      color: white;
+      font-size: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #hour-box {
+      background-color: black;
+    }
+
+    #minute-box {
+      background-color: blue;
+    }
+
+    #date {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 50px;
+    }
+
+    .line {
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      background-color: white;
+      top: 0;
+    }
+
+    #color-dropdown {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-color: white;
+      padding: 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-
-<div class="container">
-  <div class="box" id="hourBox">
-    <span id="hour"></span>
+  <div id="time-container">
+    <div id="hour-box" class="box">
+      <div id="hour"></div>
+    </div>
     <div class="line"></div>
+    <div id="minute-box" class="box">
+      <div id="minute"></div>
+    </div>
+    <div id="date"></div>
+    <select id="color-dropdown">
+      <option value="black">Black</option>
+      <option value="blue">Blue</option>
+      <option value="yellow">Yellow</option>
+      <option value="red">Red</option>
+      <option value="green">Green</option>
+      <option value="pink">Pink</option>
+    </select>
   </div>
-  <div class="box" id="minuteBox">
-    <span id="minute"></span>
-    <div class="line"></div>
-  </div>
-  <div class="date" id="dateBox">Tuesday, 27 April 2024</div>
-</div>
 
-<script>
-  function updateTime() {
-    var now = new Date();
-    var hour = now.getHours().toString().padStart(2, '0');
-    var minute = now.getMinutes().toString().padStart(2, '0');
-    document.getElementById("hour").innerText = hour;
-    document.getElementById("minute").innerText = minute;
-  }
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const hour = now.getHours().toString().padStart(2, '0');
+      const minute = now.getMinutes().toString().padStart(2, '0');
+      const dayOfWeek = now.toLocaleDateString('en-US', { weekday: 'long' });
+      const dayOfMonth = now.getDate();
+      const month = now.toLocaleDateString('en-US', { month: 'long' });
+      const year = now.getFullYear();
 
-  updateTime();
-  setInterval(updateTime, 1000);
-</script>
+      document.getElementById('hour').textContent = hour;
+      document.getElementById('minute').textContent = minute;
+      document.getElementById('date').textContent = `${dayOfWeek}, ${dayOfMonth} ${month} ${year}`;
+    }
 
+    function changeColor() {
+      const color = document.getElementById('color-dropdown').value;
+      document.getElementById('hour-box').style.backgroundColor = color;
+      document.getElementById('minute-box').style.backgroundColor = color;
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+    document.getElementById('color-dropdown').addEventListener('change', changeColor);
+  </script>
 </body>
 </html>
