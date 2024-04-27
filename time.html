@@ -3,110 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Time and Date Widget</title>
+<title>Circular Clock Widget</title>
 <style>
-  body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-  }
-  
-  .widget {
-    width: 500px;
-    height: 250px;
-    background-color: white;
-    border: 2px solid black;
-    display: flex;
-  }
-  
-  .box {
-    flex: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 80px;
-    font-family: 'Onyx', 'Times New Roman', Times, serif;
-    overflow: hidden;
-  }
-
-  .hour {
-    background-color: black;
-  }
-
-  .minute {
-    background-color: blue;
-  }
-
-  .time, .date {
-    margin: 0;
-    padding: 0;
-    white-space: nowrap;
-  }
-
-  .time {
-    font-size: 80px;
-  }
-
-  .date {
-    font-size: 40px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
-
-  .line {
-    width: 80%;
-    height: 2px;
-    background-color: white;
-    margin: 20px 0;
-  }
-
-  .dropdown {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    cursor: pointer;
-    color: white;
-    font-size: 30px;
-  }
+    #clock {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        background-color: black;
+        border-radius: 50%;
+    }
+    .hand {
+        position: absolute;
+        width: 2px;
+        height: 100px;
+        background-color: white;
+        top: 50%;
+        left: 50%;
+        transform-origin: 50% 100%;
+        transform: translateX(-50%);
+    }
+    .hour {
+        height: 60px;
+    }
+    .minute {
+        height: 80px;
+    }
+    .second {
+        height: 90px;
+        background-color: red; /* optional: red color for the second hand */
+    }
+    #date {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 20px;
+        font-family: Arial, sans-serif;
+    }
 </style>
 </head>
 <body>
 
-<div class="widget">
-  <div class="box hour">
-    <div class="time">12</div>
-  </div>
-  <div class="box minute">
-    <div class="time">34</div>
-    <div class="date">Monday, 27 April 2024</div>
-  </div>
-  <select class="dropdown">
-    <option value="black">Black</option>
-    <option value="blue">Blue</option>
-    <option value="yellow">Yellow</option>
-    <option value="red">Red</option>
-    <option value="green">Green</option>
-    <option value="pink">Pink</option>
-  </select>
+<div id="clock">
+    <div class="hand hour" id="hourHand"></div>
+    <div class="hand minute" id="minuteHand"></div>
+    <div class="hand second" id="secondHand"></div>
+    <div id="date"></div>
 </div>
 
 <script>
-  const dropdown = document.querySelector('.dropdown');
-  const boxes = document.querySelectorAll('.box');
+    function updateClock() {
+        const now = new Date();
+        const hour = now.getHours() % 12; // 12-hour format
+        const minute = now.getMinutes();
+        const second = now.getSeconds();
+        const hourDeg = (hour * 30) + (0.5 * minute); // 30 degrees per hour, 0.5 degrees per minute
+        const minuteDeg = (minute * 6) + (0.1 * second); // 6 degrees per minute, 0.1 degrees per second
+        const secondDeg = second * 6; // 6 degrees per second
 
-  dropdown.addEventListener('change', () => {
-    const color = dropdown.value;
-    boxes.forEach(box => {
-      box.style.backgroundColor = color;
-    });
-  });
+        document.getElementById('hourHand').style.transform = `rotate(${hourDeg}deg)`;
+        document.getElementById('minuteHand').style.transform = `rotate(${minuteDeg}deg)`;
+        document.getElementById('secondHand').style.transform = `rotate(${secondDeg}deg)`;
+
+        const dateElement = document.getElementById('date');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = now.toLocaleDateString('en-US', options);
+    }
+
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+
+    // Initial call to update the clock
+    updateClock();
 </script>
 
 </body>
