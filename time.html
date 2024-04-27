@@ -9,7 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 400px;
+    width: 600px; /* adjusted width */
     height: 200px;
     background-color: black;
     color: white;
@@ -20,11 +20,20 @@
   .box {
     flex: 1;
     height: 100%;
-    border-right: 2px solid white;
+    background-color: black; /* changed to black */
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+  }
+  .line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    top: 50%;
+    transform: translateY(-50%);
   }
   .date {
     position: absolute;
@@ -37,14 +46,34 @@
 <body>
 
 <div class="container">
-  <div class="box" id="hourBox">12</div>
-  <div class="box" id="minuteBox">00</div>
+  <div class="box" id="hourBox">
+    <div class="line"></div>
+    <span id="hour"></span>
+  </div>
+  <div class="box" id="minuteBox">
+    <div class="line"></div>
+    <span id="minute"></span>
+  </div>
   <div class="date" id="dateBox">Tuesday, 27 April 2024</div>
 </div>
 
 <script>
-  document.getElementById("hourBox").style.backgroundColor = "blue";
-  document.getElementById("minuteBox").style.backgroundColor = "yellow";
+  // Function to update the time every second
+  function updateTime() {
+    var now = new Date();
+    var hour = now.getHours().toString().padStart(2, '0');
+    var minute = now.getMinutes().toString().padStart(2, '0');
+    document.getElementById("hour").innerText = hour;
+    document.getElementById("minute").innerText = minute;
+  }
+
+  // Call updateTime initially and every second
+  updateTime();
+  setInterval(updateTime, 1000);
+
+  // Set initial box colors to black
+  document.getElementById("hourBox").style.backgroundColor = "black";
+  document.getElementById("minuteBox").style.backgroundColor = "black";
 
   function changeColor(color) {
     document.getElementById("hourBox").style.backgroundColor = color;
