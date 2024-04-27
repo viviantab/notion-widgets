@@ -6,7 +6,7 @@
 <title>Date and Time Widget</title>
 <style>
   body {
-    background-color: white; /* Changed background color to white */
+    background-color: white;
   }
   .container {
     display: flex;
@@ -14,12 +14,12 @@
     align-items: center;
     width: 400px;
     height: 200px;
-    color: black; /* Changed text color to black */
+    color: black;
     font-size: 72px;
     font-family: 'Times New Roman', Times, serif;
     position: relative;
-    margin: 50px auto; /* Center the widget */
-    border: 2px solid black; /* Added border */
+    margin: 50px auto;
+    border: 2px solid black;
   }
   .box {
     height: 100%;
@@ -28,7 +28,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: black; /* Set box background color to black */
+    background-color: black;
+    position: relative; /* Added position relative */
+    z-index: 1; /* Added z-index to ensure it's above other elements */
   }
   .line {
     position: absolute;
