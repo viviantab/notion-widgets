@@ -3,75 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clock Widget</title>
+<title>Date and Time Widget</title>
 <style>
-  body {
-    font-family: "Times New Roman", Times, serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-
-  .clock-widget {
+  .container {
     display: flex;
     justify-content: space-between;
-    width: 400px; /* Adjust width to fit the larger boxes */
-  }
-
-  .hour-box,
-  .minute-box {
-    width: 200px; /* Set width to half of the clock-widget width */
-    height: 100px; /* Set height to half of the desired box height */
-    display: flex;
     align-items: center;
-    justify-content: center;
+    width: 400px;
+    height: 200px;
     background-color: black;
     color: white;
     font-size: 30px;
-    text-align: center; /* Center align text */
+    font-family: 'Times New Roman', Times, serif;
+    position: relative;
   }
-
+  .box {
+    flex: 1;
+    height: 100%;
+    border-right: 2px solid white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .date {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
-    font-size: 14px; /* Smaller font size for date */
+    bottom: 10px;
+    right: 10px;
+    font-size: 20px;
   }
 </style>
 </head>
 <body>
-<div class="clock-widget">
-  <div class="hour-box">
-    <span id="hour">00</span>
-  </div>
-  <div class="minute-box">
-    <span id="minute">00</span>
-    <div class="date" id="date"></div>
-  </div>
+
+<div class="container">
+  <div class="box" id="hourBox">12</div>
+  <div class="box" id="minuteBox">00</div>
+  <div class="date" id="dateBox">Tuesday, 27 April 2024</div>
 </div>
 
 <script>
-  function updateClock() {
-    const now = new Date();
-    const hour = String(now.getHours()).padStart(2, '0');
-    const minute = String(now.getMinutes()).padStart(2, '0');
-    const date = now.toLocaleDateString('en-US', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
+  document.getElementById("hourBox").style.backgroundColor = "blue";
+  document.getElementById("minuteBox").style.backgroundColor = "yellow";
 
-    document.getElementById('hour').textContent = hour;
-    document.getElementById('minute').textContent = minute;
-    document.getElementById('date').textContent = date;
+  function changeColor(color) {
+    document.getElementById("hourBox").style.backgroundColor = color;
+    document.getElementById("minuteBox").style.backgroundColor = color;
   }
-
-  updateClock();
-  setInterval(updateClock, 1000);
 </script>
+
 </body>
-<
+</html>
