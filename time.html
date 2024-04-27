@@ -37,6 +37,12 @@
         background-color: white;
     }
     .time-mark {
+        width: 2px;
+        height: 10px;
+        top: 0;
+        transform-origin: top center;
+    }
+    .thicker-mark {
         width: 4px;
         height: 20px;
         top: 0;
@@ -61,33 +67,17 @@
 
     <!-- Time markers -->
     <!-- Minute marks -->
-    <!-- Thick minute lines -->
-    <div class="mark time-mark" style="transform: rotate(0deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(30deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(60deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(90deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(120deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(150deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(180deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(210deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(240deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(270deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(300deg) translate(135px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(330deg) translate(135px) rotate(-90deg);"></div>
-
-    <!-- Thin minute lines -->
-    <div class="mark time-mark" style="transform: rotate(15deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(45deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(75deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(105deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(135deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(165deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(195deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(225deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(255deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(285deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(315deg) translate(145px) rotate(-90deg);"></div>
-    <div class="mark time-mark" style="transform: rotate(345deg) translate(145px) rotate(-90deg);"></div>
+    <!-- Create 60 minute lines -->
+    <!-- Loop through 60 lines -->
+    <!-- Every 5th line is a thicker stroke -->
+    <!-- Calculate rotation angle for each line -->
+    <!-- Apply rotation and translation to position the lines -->
+    <!-- Adjust rotation for thicker lines -->
+    <!-- Thicker lines are placed every 5th line -->
+    <!-- Adjust rotation for thinner lines -->
+    <!-- Thin lines are placed between thicker lines -->
+    <!-- End loop -->
+    <!-- End minute marks -->
 
     <!-- Full date display -->
     <div id="date"></div>
@@ -117,6 +107,15 @@
 
     // Initial call to update the clock
     updateClock();
+
+    // Create minute marks
+    const clock = document.getElementById('clock');
+    for (let i = 0; i < 60; i++) {
+        const mark = document.createElement('div');
+        mark.className = i % 5 === 0 ? 'mark thicker-mark' : 'mark time-mark';
+        mark.style.transform = `rotate(${i * 6}deg) translate(145px) rotate(-${i * 6}deg)`;
+        clock.appendChild(mark);
+    }
 </script>
 
 </body>
